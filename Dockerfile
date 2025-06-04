@@ -44,6 +44,23 @@ WORKDIR /var/www/html
 # 4. COPIAR ARCHIVOS DE LA APLICACIÓN:
 # Copia todo el contenido de tu proyecto local (desde la raíz del Dockerfile) al directorio de trabajo en el contenedor.
 # El archivo '.dockerignore' (que crearemos después) controlará qué archivos NO se copian.
+# Dockerfile
+
+FROM php:8.2-fpm-alpine
+
+# ... (tus RUN apk add y docker-php-ext-install/enable) ...
+
+# === NUEVAS LÍNEAS DE DEPURACIÓN ===
+# Ejecuta 'which' para encontrar las rutas exactas de los ejecutables
+RUN which php
+RUN which php-fpm
+RUN which nginx
+# === FIN DE LAS NUEVAS LÍNEAS DE DEPURACIÓN ===
+
+WORKDIR /var/www/html
+COPY . .
+# ... (el resto de tu Dockerfile) ...
+
 COPY . .
 
 # 5. CONFIGURAR NGINX:
