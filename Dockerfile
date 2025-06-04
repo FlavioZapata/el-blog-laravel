@@ -48,6 +48,7 @@ RUN apk update && apk add --no-cache \
     php82-pdo_mysql \   
     php82-pdo_pgsql    
 
+    
 # Limpiar caché de apk
 RUN rm -rf /var/cache/apk/*
 
