@@ -41,12 +41,13 @@ RUN apk update && apk add --no-cache \
     git      
 
 
-RUN docker-php-ext-install mbstring exif pcntl bcmath gd
+# Instalar extensiones de PHP
+RUN docker-php-ext-install mbstring
 # NOTA: pdo_mysql y pdo_pgsql las añadiremos después
 # Habilitar extensiones de PHP
 # Habilitar extensiones de PHP
-RUN docker-php-ext-enable mbstring exif pcntl bcmath gd
-
+# Habilitar extensiones de PHP
+RUN docker-php-ext-enable mbstring
 # Limpiar caché de apk
 RUN rm -rf /var/cache/apk/*
 
