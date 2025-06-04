@@ -24,6 +24,7 @@ FROM php:8.2-fpm-alpine
 #   - pdo_pgsql: ¡CRUCIAL para conectar a la base de datos PostgreSQL de Render!
 #   - mbstring, exif, pcntl, bcmath, gd: Extensiones comunes que Laravel y otras librerías suelen requerir.
 # 'docker-php-ext-enable': Habilita las extensiones recién instaladas.
+# 2. INSTALAR DEPENDENCIAS DEL SISTEMA Y EXTENSIONES DE PHP:
 RUN apk update && apk add --no-cache \
     nginx \
     postgresql-client \
@@ -32,8 +33,6 @@ RUN apk update && apk add --no-cache \
     libpng-dev \
     jpeg-dev \
     git \
-    nodejs \
-    bash \
     && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
     && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
     && rm -rf /var/cache/apk/*
