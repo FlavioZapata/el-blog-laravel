@@ -39,10 +39,13 @@ RUN apk update && apk add --no-cache \
     mysql-client \     
     mysql-dev \         
     git      
-# Instalar extensiones de PHP
-RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+
+
+RUN docker-php-ext-install mbstring exif pcntl bcmath gd
+# NOTA: pdo_mysql y pdo_pgsql las añadiremos después
 # Habilitar extensiones de PHP
-RUN docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+# Habilitar extensiones de PHP
+RUN docker-php-ext-enable mbstring exif pcntl bcmath gd
 
 # Limpiar caché de apk
 RUN rm -rf /var/cache/apk/*
