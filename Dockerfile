@@ -25,29 +25,24 @@ FROM php:8.2-fpm-alpine
 #   - mbstring, exif, pcntl, bcmath, gd: Extensiones comunes que Laravel y otras librerías suelen requerir.
 # 'docker-php-ext-enable': Habilita las extensiones recién instaladas.
 # 2. INSTALAR DEPENDENCIAS DEL SISTEMA Y EXTENSIONES DE PHP:
-# 2. INSTALAR DEPENDENCIAS DEL SISTEMA Y EXTENSIONES DE PHP:
 # Actualizar y añadir paquetes base
 RUN apk update && apk add --no-cache \ 
     nginx \ 
     postgresql-client \ 
-    postgresql-dev \  # <-- ¡Añadir este! Para pdo_pgsql
-    libzip-dev \ 
-    libpng-dev \ 
-    jpeg-dev \ 
-    freetype-dev \    # <-- ¡Añadir este! Para gd
-    mysql-client \    # <-- ¡Añadir este! Para pdo_mysql
-    mysql-dev      # <-- ¡Añadir este! Para pdo_mysql
-    git
-
+    postgresql-dev \    # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
+    libzip-dev \        # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
+    libpng-dev \        # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
+    jpeg-dev \          # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
+    freetype-dev \      # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
+    mysql-client \      # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
+    mysql-dev           # <-- ¡ESTA ES LA ÚLTIMA LÍNEA DE ESTA INSTRUCCIÓN, NO LLEVA \!
 # Instalar extensiones de PHP
 RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
-
 # Habilitar extensiones de PHP
 RUN docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
 
 # Limpiar caché de apk
 RUN rm -rf /var/cache/apk/*
-
 
 # 3. DEFINIR DIRECTORIO DE TRABAJO:
 # Establece el directorio donde se copiará tu código y donde se ejecutarán los comandos.
