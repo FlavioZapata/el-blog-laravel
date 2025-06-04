@@ -25,16 +25,24 @@ FROM php:8.2-fpm-alpine
 #   - mbstring, exif, pcntl, bcmath, gd: Extensiones comunes que Laravel y otras librerías suelen requerir.
 # 'docker-php-ext-enable': Habilita las extensiones recién instaladas.
 # 2. INSTALAR DEPENDENCIAS DEL SISTEMA Y EXTENSIONES DE PHP:
-RUN apk update && apk add --no-cache \ 
-    nginx \ 
-    postgresql-client  \ 
-    libzip-dev  \ 
-    libpng-dev  \ 
-    jpeg-dev  \ 
-    git  \ 
-    && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \ 
-    && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \ 
-    && rm -rf /var/cache/apk/*
+# 2. INSTALAR DEPENDENCIAS DEL SISTEMA Y EXTENSIONES DE PHP:
+# Actualizar y añadir paquetes base
+RUN apk update && apk add --no-cache \
+    nginx \
+    postgresql-client \
+    libzip-dev \
+    libpng-dev \
+    jpeg-dev \
+    git
+
+# Instalar extensiones de PHP
+RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+
+# Habilitar extensiones de PHP
+RUN docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+
+# Limpiar caché de apk
+RUN rm -rf /var/cache/apk/*
 
 
 # 3. DEFINIR DIRECTORIO DE TRABAJO:
