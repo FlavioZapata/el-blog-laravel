@@ -48,7 +48,7 @@ RUN apk update && apk add --no-cache \
     php82-pdo_mysql \   
     php82-pdo_pgsql    
 
-    
+
 # Limpiar caché de apk
 RUN rm -rf /var/cache/apk/*
 
@@ -67,19 +67,12 @@ WORKDIR /var/www/html
 # Ejecuta 'which' para encontrar las rutas exactas de los ejecutables
 # === FIN DE LAS NUEVAS LÍNEAS DE DEPURACIÓN ===
 
-COPY . .
-# ... (el resto de tu Dockerfile) ...
+# 4. COPIAR CÓDIGO Y DEFINIR COMANDO DE INICIO
+# Copiar todo el código de tu proyecto al directorio de trabajo en el contenedor.
+COPY . /var/www/html
 
-# 5. CONFIGURAR NGINX:
-# Copia el archivo de configuración personalizado de Nginx desde tu proyecto a la ubicación estándar de Nginx en el contenedor.
-# Esto es vital para que Nginx sepa cómo servir tu aplicación Laravel (apuntando a `public/index.php`).
-COPY .docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+# Dar permisos de ejecución al script de inicio
+RUN chmod +x /var/www/html/start.sh
 
-# 6. EXPONER PUERTO:
-# Informa a Docker que el contenedor escuchará en el puerto 80 (el puerto HTTP estándar) para el tráfico web.
-EXPOSE 80
-
-# 7. COMANDO DE INICIO (CMD):
-# Este comando indica qué se ejecutará cuando el contenedor se inicie.
-# Aquí, simplemente llamamos a un script que crearemos, 'start.sh', que se encargará de iniciar PHP-FPM y Nginx.
+# Definir el comando que se ejecutará cuando el contenedor se inicie.
 CMD ["./start.sh"]
