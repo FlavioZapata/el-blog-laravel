@@ -36,7 +36,7 @@ RUN apk update && apk add --no-cache \
     jpeg-dev \ 
     freetype-dev \    # <-- ¡Añadir este! Para gd
     mysql-client \    # <-- ¡Añadir este! Para pdo_mysql
-    mysql-dev \       # <-- ¡Añadir este! Para pdo_mysql
+    mysql-dev      # <-- ¡Añadir este! Para pdo_mysql
     git
 
 # Instalar extensiones de PHP
