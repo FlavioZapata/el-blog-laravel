@@ -31,23 +31,24 @@ FROM php:8.2-fpm-alpine
 RUN apk update && apk add --no-cache \ 
     nginx \ 
     postgresql-client \ 
-    postgresql-dev \    
-    libzip-dev \        
-    libpng-dev \        
-    jpeg-dev \          
-    freetype-dev \      
-    mysql-client \     
-    mysql-dev \         
-    git      
+    postgresql-dev \ 
+    libzip-dev \ 
+    libpng-dev \ 
+    jpeg-dev \ 
+    freetype-dev \ 
+    mysql-client \ 
+    mysql-dev \ 
+    git \ 
+    nodejs \ 
+    bash \ 
 
+    php82-mbstring \   
+    php82-exif \        
+    php82-bcmath \      
+    php82-gd \         
+    php82-pdo_mysql \   
+    php82-pdo_pgsql    
 
-# Instalar extensiones de PHP
-RUN docker-php-ext-install mbstring
-# NOTA: pdo_mysql y pdo_pgsql las añadiremos después
-# Habilitar extensiones de PHP
-# Habilitar extensiones de PHP
-# Habilitar extensiones de PHP
-RUN docker-php-ext-enable mbstring
 # Limpiar caché de apk
 RUN rm -rf /var/cache/apk/*
 
