@@ -29,13 +29,14 @@ FROM php:8.2-fpm-alpine
 RUN apk update && apk add --no-cache \ 
     nginx \ 
     postgresql-client \ 
-    postgresql-dev \    # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
-    libzip-dev \        # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
-    libpng-dev \        # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
-    jpeg-dev \          # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
-    freetype-dev \      # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
-    mysql-client \      # <-- ¡ASEGÚRATE DEL ESPACIO AQUÍ!
-    mysql-dev           # <-- ¡ESTA ES LA ÚLTIMA LÍNEA DE ESTA INSTRUCCIÓN, NO LLEVA \!
+    postgresql-dev \ 
+    libzip-dev \ 
+    libpng-dev \ 
+    jpeg-dev \ 
+    freetype-dev \ 
+    mysql-client \ 
+    mysql-dev \ 
+    git         # <-- ¡ESTA ES LA ÚLTIMA LÍNEA DE ESTA INSTRUCCIÓN, NO LLEVA \!
 # Instalar extensiones de PHP
 RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
 # Habilitar extensiones de PHP
