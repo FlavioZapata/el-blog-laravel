@@ -23,7 +23,7 @@ FROM php:8.2-fpm-alpine
 #   - pdo_pgsql: ¡CRUCIAL para conectar a la base de datos PostgreSQL de Render!
 #   - mbstring, exif, pcntl, bcmath, gd: Extensiones comunes que Laravel y otras librerías suelen requerir.
 # 'docker-php-ext-enable': Habilita las extensiones recién instaladas.
-RUN apk add --no-cache \
+RUN apk update && apk add --no-cache \
     nginx \
     postgresql-client \
     libpq \
@@ -31,11 +31,12 @@ RUN apk add --no-cache \
     libpng-dev \
     jpeg-dev \
     git \
-    npm \
-    # Puedes añadir más dependencias si tu aplicación las necesita, por ejemplo:
-    # imagemagick (si usas manipulación de imágenes avanzada), etc.
+    nodejs \ # Asegúrate de que nodejs esté aquí para npm
+    npm \    # npm también
+    bash \   # Asegúrate de que bash esté disponible para start.sh
     && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
-    && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+    && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
+    && rm -rf /var/cache/apk/*
 
 # 3. DEFINIR DIRECTORIO DE TRABAJO:
 # Establece el directorio donde se copiará tu código y donde se ejecutarán los comandos.
@@ -46,19 +47,14 @@ WORKDIR /var/www/html
 # El archivo '.dockerignore' (que crearemos después) controlará qué archivos NO se copian.
 # Dockerfile
 
-FROM php:8.2-fpm-alpine
-
 # ... (tus RUN apk add y docker-php-ext-install/enable) ...
 
 # === NUEVAS LÍNEAS DE DEPURACIÓN ===
 # Ejecuta 'which' para encontrar las rutas exactas de los ejecutables
 # === FIN DE LAS NUEVAS LÍNEAS DE DEPURACIÓN ===
 
-WORKDIR /var/www/html
 COPY . .
 # ... (el resto de tu Dockerfile) ...
-
-COPY . .
 
 # 5. CONFIGURAR NGINX:
 # Copia el archivo de configuración personalizado de Nginx desde tu proyecto a la ubicación estándar de Nginx en el contenedor.
