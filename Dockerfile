@@ -25,7 +25,7 @@ FROM php:8.2-fpm-alpine
 # 'docker-php-ext-enable': Habilita las extensiones recién instaladas.
 # ... otras líneas ...
 
-RUN apt-get update && apt-get install -y \
+RUN apk update && apk add --no-cache \
     nginx \ 
     postgresql-client \ 
     libpq \ 
@@ -33,8 +33,8 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \ 
     jpeg-dev \ 
     git \ 
-    nodejs \ **<-- DEBE HABER UN ESPACIO AQUÍ DESPUÉS DE nodejs \**
-    bash \   **<-- DEBE HABER UN ESPACIO AQUÍ DESPUÉS DE bash \**
+    nodejs   \  
+    bash   \   
     && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \ 
     && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \ 
     && rm -rf /var/cache/apk/* 
