@@ -32,7 +32,6 @@ RUN apk update && apk add --no-cache \
     jpeg-dev \
     git \
     nodejs \ # Asegúrate de que nodejs esté aquí para npm
-    npm \    # npm también
     bash \   # Asegúrate de que bash esté disponible para start.sh
     && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
     && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
