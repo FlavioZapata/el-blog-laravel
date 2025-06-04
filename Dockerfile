@@ -52,9 +52,6 @@ FROM php:8.2-fpm-alpine
 
 # === NUEVAS LÍNEAS DE DEPURACIÓN ===
 # Ejecuta 'which' para encontrar las rutas exactas de los ejecutables
-RUN which php
-RUN which php-fpm
-RUN which nginx
 # === FIN DE LAS NUEVAS LÍNEAS DE DEPURACIÓN ===
 
 WORKDIR /var/www/html

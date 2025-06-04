@@ -2,10 +2,10 @@
 
 # Este script se ejecuta cuando el contenedor Docker inicia.
 
-# Ruta donde se encuentran los ejecutables en la imagen php-fpm-alpine
-PHP_BIN=/usr/local/bin/php
-PHP_FPM_BIN=/usr/local/sbin/php-fpm # php-fpm suele estar en /usr/local/sbin en Alpine
-NGINX_BIN=/usr/sbin/nginx          # Nginx suele estar en /usr/sbin en Alpine
+# Rutas correctas para ejecutables en imágenes Alpine
+PHP_BIN=/usr/bin/php          # Cambiado de /usr/local/bin/php
+PHP_FPM_BIN=/usr/sbin/php-fpm # Manteniendo /usr/local/sbin/php-fpm o /usr/sbin/php-fpm
+NGINX_BIN=/usr/sbin/nginx     # Cambiado de /usr/local/bin/nginx
 
 # 1. Ejecutar migraciones de la base de datos:
 echo "Running database migrations..."
