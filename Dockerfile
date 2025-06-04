@@ -27,12 +27,16 @@ FROM php:8.2-fpm-alpine
 # 2. INSTALAR DEPENDENCIAS DEL SISTEMA Y EXTENSIONES DE PHP:
 # 2. INSTALAR DEPENDENCIAS DEL SISTEMA Y EXTENSIONES DE PHP:
 # Actualizar y añadir paquetes base
-RUN apk update && apk add --no-cache \
-    nginx \
-    postgresql-client \
-    libzip-dev \
-    libpng-dev \
-    jpeg-dev \
+RUN apk update && apk add --no-cache \ 
+    nginx \ 
+    postgresql-client \ 
+    postgresql-dev \  # <-- ¡Añadir este! Para pdo_pgsql
+    libzip-dev \ 
+    libpng-dev \ 
+    jpeg-dev \ 
+    freetype-dev \    # <-- ¡Añadir este! Para gd
+    mysql-client \    # <-- ¡Añadir este! Para pdo_mysql
+    mysql-dev \       # <-- ¡Añadir este! Para pdo_mysql
     git
 
 # Instalar extensiones de PHP
