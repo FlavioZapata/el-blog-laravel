@@ -23,19 +23,22 @@ FROM php:8.2-fpm-alpine
 #   - pdo_pgsql: ¡CRUCIAL para conectar a la base de datos PostgreSQL de Render!
 #   - mbstring, exif, pcntl, bcmath, gd: Extensiones comunes que Laravel y otras librerías suelen requerir.
 # 'docker-php-ext-enable': Habilita las extensiones recién instaladas.
+# ... otras líneas ...
+
 RUN apt-get update && apt-get install -y \
-    nginx \
-    postgresql-client \
-    libpq \
-    libzip-dev \
-    libpng-dev \
-    jpeg-dev \
-    git \
-    nodejs \ # Asegúrate de que nodejs esté aquí para npm
-    bash \   # Asegúrate de que bash esté disponible para start.sh
-    && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
-    && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
-    && rm -rf /var/cache/apk/*
+    nginx \ 
+    postgresql-client \ 
+    libpq \ 
+    libzip-dev \ 
+    libpng-dev \ 
+    jpeg-dev \ 
+    git \ 
+    nodejs \ **<-- DEBE HABER UN ESPACIO AQUÍ DESPUÉS DE nodejs \**
+    bash \   **<-- DEBE HABER UN ESPACIO AQUÍ DESPUÉS DE bash \**
+    && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \ 
+    && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \ 
+    && rm -rf /var/cache/apk/* 
+
 
 # 3. DEFINIR DIRECTORIO DE TRABAJO:
 # Establece el directorio donde se copiará tu código y donde se ejecutarán los comandos.
