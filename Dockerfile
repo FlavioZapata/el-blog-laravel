@@ -16,28 +16,27 @@ FROM php:8.2-fpm-alpine
 #   - libpq: Librería necesaria para la extensión PDO_PGSQL de PHP.
 #   - libzip-dev, libpng-dev, jpeg-dev: Dependencias para extensiones PHP comunes como 'zip' o 'gd'.
 #   - git: Necesario si tu aplicación usa Git internamente o si Composer lo requiere para ciertas dependencias.
-#   - npm: (Opcional, pero recomendado si Render va a compilar tus assets JS/CSS) El gestor de paquetes de Node.js, para `npm install` y `npm run build`.
+#   - nodejs: El gestor de paquetes de Node.js, para `npm install` y `npm run build`.
+#   - bash: Asegúrate de que bash esté disponible para start.sh
 #
 # 'docker-php-ext-install': Instala extensiones de PHP.
 #   - pdo_mysql: Para MySQL (aunque uses PostgreSQL en Render, es buena práctica si la app lo soporta).
 #   - pdo_pgsql: ¡CRUCIAL para conectar a la base de datos PostgreSQL de Render!
 #   - mbstring, exif, pcntl, bcmath, gd: Extensiones comunes que Laravel y otras librerías suelen requerir.
 # 'docker-php-ext-enable': Habilita las extensiones recién instaladas.
-# ... otras líneas ...
-
 RUN apk update && apk add --no-cache \
-    nginx \ 
-    postgresql-client \ 
-    libpq \ 
-    libzip-dev \ 
-    libpng-dev \ 
-    jpeg-dev \ 
-    git \ 
-    nodejs   \  
-    bash   \   
-    && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \ 
-    && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \ 
-    && rm -rf /var/cache/apk/* 
+    nginx \
+    postgresql-client \
+    libpq \
+    libzip-dev \
+    libpng-dev \
+    jpeg-dev \
+    git \
+    nodejs \
+    bash \
+    && docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
+    && docker-php-ext-enable pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd \
+    && rm -rf /var/cache/apk/*
 
 
 # 3. DEFINIR DIRECTORIO DE TRABAJO:
